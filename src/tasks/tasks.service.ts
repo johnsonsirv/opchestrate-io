@@ -16,6 +16,7 @@ export class TasksService {
 
   /**
    * createTask
+   * @param createTaskDto {CreteTaskDto}
    */
   public createTask({ title, description }): Task {
     const task: Task = {
