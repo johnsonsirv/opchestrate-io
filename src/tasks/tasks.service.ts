@@ -30,7 +30,10 @@ export class TasksService {
 
     if (search) {
       tasks = tasks.filter(({ title, description }) => {
-        return title.includes(search) || description.includes(search);
+        return (
+          title.toLowerCase().includes(search) ||
+          description.toLowerCase().includes(search)
+        );
       });
     }
 
@@ -59,8 +62,8 @@ export class TasksService {
   public createTask({ title, description }): Task {
     const task: Task = {
       id: uuidv4(),
-      title,
-      description,
+      title: title.toLowerCase(),
+      description: description.toLowerCase(),
       status: TaskStatus.TODO,
     };
 
