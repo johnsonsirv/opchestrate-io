@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     TasksModule,
     TypeOrmModule.forRoot({
-      type: 'postgres', //TODO: move to config b4 git commit
+      type: 'postgres', //TODO: move to config. Bad practice, Just temporal.
       host: 'localhost',
       port: 5432,
       database: 'task-aide',
