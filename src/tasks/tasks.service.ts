@@ -13,10 +13,9 @@ export class TasksService {
   ) {}
   /**
    * getTasks
-   * @returns {Task[]}
+   * @returns {Promise<Task[]>}
    */
   public getTasks(taskFilterDto: GetTasksFilterDto): Promise<Task[]> {
-    // using a query builder
     return this.tasksRepository.getTasks(taskFilterDto);
   }
 
@@ -35,7 +34,7 @@ export class TasksService {
   /**
    * createTask
    * @param createTaskDto {CreteTaskDto}
-   * @returns {Task}
+   * @returns {Promise<Task>}
    */
   public createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksRepository.createTask(createTaskDto);
