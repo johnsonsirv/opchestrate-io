@@ -15,6 +15,8 @@ import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 import { Task } from '../entities/task.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/entities/user.entity';
 
 @Controller('tasks')
 @UseGuards(AuthGuard())
@@ -26,8 +28,11 @@ export class TasksController {
    * getTasks
    * @returns {Task[]}
    */
-  public getTasks(@Query() taskFilterDto: GetTasksFilterDto): Promise<Task[]> {
-    return this.taskService.getTasks(taskFilterDto);
+  public getTasks(
+    @Query() taskFilterDto: GetTasksFilterDto,
+    @GetUser() user: User,
+  ): Promise<Task[]> {
+    return this.taskService.getTasks(taskFilterDto, user);
   }
 
   @Get(':id')
@@ -44,8 +49,11 @@ export class TasksController {
    * createTask
    *  @returns {Task}
    */
-  public createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.taskService.createTask(createTaskDto);
+  public createTask(
+    @Body() createTaskDto: CreateTaskDto,
+    @GetUser() user: User,
+  ): Promise<Task> {
+    return this.taskService.createTask(createTaskDto, user);
   }
 
   @Patch(':id/status')
@@ -58,9 +66,10 @@ export class TasksController {
   public updateTaskStatusById(
     @Param('id') id: string,
     @Body() updateTaskStatusDto: UpdateTaskStatusDto,
+    @GetUser() user: User,
   ): Promise<Task> {
     const { status } = updateTaskStatusDto;
-    return this.taskService.updateTaskStatusById({ id, status });
+    return this.taskService.updateTaskStatusById({ id, status, user });
   }
 
   @Delete(':id')
@@ -69,7 +78,10 @@ export class TasksController {
    * @param id {string}
    * @returns {void}
    */
-  public removeTaskById(@Param('id') id: string): Promise<void> {
-    return this.taskService.removeTaskById(id);
+  public removeTaskById(
+    @Param('id') id: string,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.taskService.removeTaskById(id, user);
   }
 }
