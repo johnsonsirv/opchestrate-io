@@ -9,24 +9,32 @@ import { configValidationSchema } from './config.schema';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [`.env.${process.env.NODE_ENV}`],
+      envFilePath: [`.env.${process.env.STAGE}`],
       validationSchema: configValidationSchema,
     }),
     TasksModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'postgres',
-        synchronize: true,
-        autoLoadEntities: true,
-        host: configService.get('DB_HOST'),
-        database: configService.get('DB_NAME'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        entities: [Task],
-      }),
+      useFactory: async (configService: ConfigService) => {
+        const isProd = configService.get('STAGE') === 'prod';
+
+        return {
+          ssl: isProd,
+          extra: {
+            ssl: isProd ? { rejectUnauthorized: false } : null,
+          },
+          type: 'postgres',
+          synchronize: true,
+          autoLoadEntities: true,
+          host: configService.get('DB_HOST'),
+          database: configService.get('DB_NAME'),
+          port: configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          entities: [Task],
+        };
+      },
     }),
     AuthModule,
   ],

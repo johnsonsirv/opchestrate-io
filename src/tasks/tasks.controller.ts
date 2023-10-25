@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Patch,
   Post,
@@ -21,6 +22,7 @@ import { User } from 'src/entities/user.entity';
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
+  private logger = new Logger('TasksController');
   constructor(private taskService: TasksService) {}
 
   @Get()
@@ -32,6 +34,7 @@ export class TasksController {
     @Query() taskFilterDto: GetTasksFilterDto,
     @GetUser() user: User,
   ): Promise<Task[]> {
+    this.logger.log('getTasks');
     return this.taskService.getTasks(taskFilterDto, user);
   }
 
