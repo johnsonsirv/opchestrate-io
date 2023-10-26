@@ -7,7 +7,7 @@ import {
 import { UserErrors, UsersRepository } from './users.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';

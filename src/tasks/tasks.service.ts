@@ -4,7 +4,7 @@ import { TasksRepository } from './tasks.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from '../entities/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 import { FindOptionsWhere } from 'typeorm';
 
 @Injectable()
