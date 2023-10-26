@@ -1,10 +1,10 @@
 {
-  "name": "task-aid",
+  "name": "opchestrate.io",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Efficient workflow and operations in one place",
+  "author": "Victor Okeugo",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "ISC",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -12,12 +12,12 @@
     "start:dev": "STAGE=dev nest start --watch",
     "start:debug": "STAGE=dev nest start --debug --watch",
     "start:prod": "STAGE=prod node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "STAGE=dev jest",
-    "test:watch": "jest --watch",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "test": "STAGE=dev jest --config jest.config.js",
+    "test:watch": "jest --watch --config jest.config.js",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./tests/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
