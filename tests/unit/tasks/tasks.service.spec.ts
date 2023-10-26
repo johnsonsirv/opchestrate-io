@@ -5,7 +5,7 @@ import { NotFoundException } from '@nestjs/common';
 import TaskMock from '../../mocks/task.mock';
 import UserMock from '../../mocks/user.mock';
 
-const mckTasksRepository = () => ({
+const TasksRepositoryMock = () => ({
   getTasks: jest.fn(),
   findOne: jest.fn(),
 });
@@ -18,7 +18,7 @@ describe('TasksService', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       providers: [
         TasksService,
-        { provide: TasksRepository, useFactory: mckTasksRepository },
+        { provide: TasksRepository, useFactory: TasksRepositoryMock },
       ],
     }).compile();
 
